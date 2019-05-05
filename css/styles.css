@@ -1,0 +1,46 @@
+body{
+    background-color: beige;
+    font-family: 'Cormorant Unicase', serif;
+}
+.tic{
+    border:3px solid blueviolet;
+    height: 130px;
+    width: 130px;
+    text-align: center;
+}
+#gameboard {
+    width: 100%;
+    display: flex;
+    padding-top: 3%;
+    justify-content: center;
+
+}
+/* .col{
+} */
+h1{
+    color:blueviolet;
+    text-align: center;
+}
+span{
+    font-size: 7em;
+}
+#winner{
+    font-size: inherit;
+    color: blueviolet;
+}
+p{
+    padding-left: 2%;
+    font-size: 2em;
+}
+/*****
+next: 
+1-pick the colors in hex, fonts
+2-the x,o style
+<style>
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Unicase');
+</style>
+
+font-family: 'Cormorant Unicase', serif;
+
+Don't start psudocode just yet
+******/
