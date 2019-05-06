@@ -95,7 +95,6 @@ const tie = function(event){
         $('#turn').parent().empty();
     }
 }
-
 $('#reset').on('click', function (event) {
     location.reload();
 })
