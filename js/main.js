@@ -1,143 +1,114 @@
-// play
-// calc winner 
-// scenario 1 : all col clicked by one player
-// scenario 2 : all row clicked by one player
-// reset game
-
-let turn = true;
-// if(turn) => X 
-// else => O 
+let turnVar = true;
+let rowWinArray = ['row', 'row', 'row'];
+let diagonalWinArray = ['d', 'd'];
+let count = 0;
 
 const winnerIsX = function(event){
     $("#winner").text(' Player X');
     $('.tic').off('click');
+    $('#turn').parent().empty();
 }
-
 const winnerIsO = function(event){
     $("#winner").text(' Player O');
     $('.tic').off('click');
+    $('#turn').parent().empty();
 }
-// an array to save all tics ? 
-// let checkedTics = [];
-
-$('.tic').one('click', function(event){
-    event.preventDefault()
-    if (turn) {
+const turn = function (event) {
+    if (turnVar) {
         $(event.target).html('<span>X</span>')
-        turn = false;
-    }else {
+        turnVar = false;
+        $("#turn").text(' Player O');
+    } else {
         $(event.target).html('<span>O</span>')
-        turn = true;
+        turnVar = true;
+        $("#turn").text(' Player X');
+    }
 }
-})
-
-// scenario 1 : if (all col-1 || all col-2 || all col-3 children) has been clicked
-$('.tic').one('click', function (event) {
+const columnWin = function (event) {
     if ($('#col-1').children().text() == 'XXX' || $('#col-2').children().text() == 'XXX' || $('#col-3').children().text() == 'XXX') {
         // console.log('all col clicked by X');
         winnerIsX(event);
     } else {
-        if ($('#col-1').children().text() == 'OOO' || $('#col-2').children().text() == 'OOO' || $('#col-3').children().text() == 'OOO'){
+        if ($('#col-1').children().text() == 'OOO' || $('#col-2').children().text() == 'OOO' || $('#col-3').children().text() == 'OOO') {
             // console.log('all col clicked by O');
-            winnerIsO(event); }
+            winnerIsO(event);
+        }
     }
-})
-
-// scenario 2 : all row clicked by one player
-let rowWinArray = ['row', 'row', 'row'];
-$('.tic').one('click', function (event) {
-    if ($(event.target).index() == 0) 
-    {
-    // console.log(' 1st row clicked') // log three times 
-    // are all X
-    rowWinArray[0] += $(event.target).text();
-    // console.log(rowWinArray);
+}
+const rowWin = function (event) {
+    if ($(event.target).index() == 0) {
+        // console.log(' 1st row clicked') 
+        rowWinArray[0] += $(event.target).text();
     } else {
         if ($(event.target).index() == 1) {
-            // console.log(' 2nd row clicked') // log three times 
+            // console.log(' 2nd row clicked')
             rowWinArray[1] += $(event.target).text();
-            // console.log(rowWinArray);
         } else {
             if ($(event.target).index() == 2) {
-                // console.log(' 3rd row clicked') // log three times 
-                // are all X
+                // console.log(' 3rd row clicked')
                 rowWinArray[2] += $(event.target).text();
-                // console.log(rowWinArray);
             }
         }
-
     }
-
-    // calc row winner 
-    for (let i =0; i<rowWinArray.length; i++){
-        if (rowWinArray[i] == 'rowOOO'){
+    for (let i = 0; i < rowWinArray.length; i++) { // calc row winner 
+        if (rowWinArray[i] == 'rowOOO') {
             winnerIsO(event);
         } else {
-            if (rowWinArray[i] == 'rowXXX'){
+            if (rowWinArray[i] == 'rowXXX') {
                 winnerIsX(event);
             }
         }
     }
-})
-
-let diagonalWinArray = ['d', 'd'];
-// scenario 3 : diagonal win
-// index == 0 && col-1 || index == 0 && col-3
-// index == 1 && col-2
-// index == 2 && col-1 || index == 2 && col-3
-$('.tic').one('click', function (event) {
+}
+const diagonalWin = function (event) {
     if ($(event.target).index() == 0 && $(event.target).parent('.col').attr('id') == 'col-1') {
         diagonalWinArray[0] += $(event.target).text();
-        // console.log(diagonalWinArray);
-        } else {
-        if ($(event.target).index() == 0 && $(event.target).parent('.col').attr('id') == 'col-3'){
-                diagonalWinArray[1] += $(event.target).text();
-                // console.log(diagonalWinArray);  
-            }
-        }
-     
-    if ($(event.target).index() == 1 && $(event.target).parent('.col').attr('id') == 'col-2'){
-            diagonalWinArray[0] += $(event.target).text();
-            diagonalWinArray[1] += $(event.target).text();
-            // console.log(diagonalWinArray);
-        }
-    if ($(event.target).index() == 2 && $(event.target).parent('.col').attr('id') == 'col-1'){
-            diagonalWinArray[1] += $(event.target).text();
-            // console.log(diagonalWinArray); 
-            } else {
-        if ($(event.target).index() == 2 && $(event.target).parent('.col').attr('id') == 'col-3'){
-                    diagonalWinArray[0] += $(event.target).text();
-                    // console.log(diagonalWinArray); 
-                    }
-                }
-// calc diagonal win
-for (let i=0; i<diagonalWinArray.length; i++){
-    if (diagonalWinArray[i] == 'dXXX'){
-        winnerIsX(event);
     } else {
-        if (diagonalWinArray[i] == 'dOOO'){
-            winnerIsO(event);  
+        if ($(event.target).index() == 0 && $(event.target).parent('.col').attr('id') == 'col-3') {
+            diagonalWinArray[1] += $(event.target).text(); 
+        }
+    }
+    if ($(event.target).index() == 1 && $(event.target).parent('.col').attr('id') == 'col-2') {
+        diagonalWinArray[0] += $(event.target).text();
+        diagonalWinArray[1] += $(event.target).text();
+    }
+    if ($(event.target).index() == 2 && $(event.target).parent('.col').attr('id') == 'col-1') {
+        diagonalWinArray[1] += $(event.target).text();
+    } else {
+        if ($(event.target).index() == 2 && $(event.target).parent('.col').attr('id') == 'col-3') {
+            diagonalWinArray[0] += $(event.target).text(); 
+        }
+    }
+    for (let i = 0; i < diagonalWinArray.length; i++) { // calc diagonal win
+        if (diagonalWinArray[i] == 'dXXX') {
+            winnerIsX(event);
+        } else {
+            if (diagonalWinArray[i] == 'dOOO') {
+                winnerIsO(event);
+            }
         }
     }
 }
-            
-})
+const tie = function(event){
+    if (!$('#winner').text() && count == 9) {
+        $('#winner').parent().text("It's a tie!");
+        $('#turn').parent().empty();
+    }
+}
 
-$('#reset').on('click', function(event){
+$('#reset').on('click', function (event) {
     location.reload();
 })
-
-// requirments:
-// show if tie
-// on each turn, who's turn is it
-
-// KISS, DRY
-const columnWin = function(event){
-
-}
-const rowWin = function(event){
-
-}
-const diagonalWin = function(event){
-
-}
+$('.tic').one('click', function(event){
+    event.preventDefault()
+    turn(event);
+    // scenario 1 : col win
+    columnWin(event);
+    // scenario 2 : row win
+    rowWin(event);
+    // scenario 3 : diagonal win
+    diagonalWin(event);
+    // scenario 4 : tie
+    count++;
+    tie(event); 
+})

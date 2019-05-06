@@ -24,7 +24,7 @@ h1{
 span{
     font-size: 7em;
 }
-#winner{
+#winner, #turn{
     font-size: inherit;
     color: blueviolet;
 }
