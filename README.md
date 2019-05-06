@@ -1,6 +1,10 @@
 # Tic Tac Toe Game 
 
 ## Technologies used
+* HTML
+* CSS
+* JavaScript
+* jQuery
 
 ## Approach
 
