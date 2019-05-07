@@ -3,6 +3,7 @@ body{
     font-family: 'Cormorant Unicase', serif;
     border: 1px solid #3d3d5c;
     margin: 0;
+    text-align: center;
 }
 header{
     background-color: #3d3d5c;
@@ -36,16 +37,17 @@ h1{
 span{
     font-size: 7em;
 }
-#winner, #turn{
+#winner, #turn, #score{
     font-size: inherit;
     color: #9c4be7;
 }
 p{
-    padding-left: 2%;
     font-size: 2em;
 }
-button{
-    margin-left: 2%;
+#xChoice, #oChoice{
+    width: 50px;
+    height: 40px;
+    font-size: 24px;
 }
 footer{
     background-color: #3d3d5c;

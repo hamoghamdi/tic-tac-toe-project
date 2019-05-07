@@ -4,14 +4,20 @@ let diagonalWinArray = ['d', 'd'];
 let count = 0;
 
 const winnerIsX = function(event){
-    $("#winner").text(' Player X');
-    $('.tic').off('click');
-    $('#turn').parent().empty();
+    $("#winner").text(' Player X wins!');
+    // $('.tic').off('click'); // ---------------------------- // try not to use off 
+    $('#turn').empty();
 }
 const winnerIsO = function(event){
-    $("#winner").text(' Player O');
-    $('.tic').off('click');
-    $('#turn').parent().empty();
+    $("#winner").text(' Player O wins!');
+    // $('.tic').off('click'); // ---------------------------- // try not to use off
+    $('#turn').empty();
+}
+const tie = function (event) {
+    if (!$('#winner').text() && count == 9) {
+        $('#winner').text("It's a tie!");
+        $('#turn').empty();
+    }
 }
 const turn = function (event) {
     if (turnVar) {
@@ -89,17 +95,10 @@ const diagonalWin = function (event) {
         }
     }
 }
-const tie = function(event){
-    if (!$('#winner').text() && count == 9) {
-        $('#winner').parent().text("It's a tie!");
-        $('#turn').parent().empty();
-    }
-}
-$('#reset').on('click', function (event) {
-    location.reload();
-})
-$('.tic').one('click', function(event){
+const playerTic = function (event) {
     event.preventDefault()
+    if ($(event.target).text() == "" && $('#winner').text() == ""){
+    // $(event.target).off("click"); // allow one click per box // off f up everything better not use it since reset is not page refresh
     turn(event);
     // scenario 1 : col win
     columnWin(event);
@@ -109,5 +108,48 @@ $('.tic').one('click', function(event){
     diagonalWin(event);
     // scenario 4 : tie
     count++;
-    tie(event); 
+    tie(event);
+    console.log("playerTic function");
+    // console.log("playerTic if entered");
+    } 
+    else console.log("playerTic if(else) entered");
+}
+
+$('#reset').on('click', function (event) {
+    // location.reload();
+    turnVar = true;
+    rowWinArray = ['row', 'row', 'row'];
+    diagonalWinArray = ['d', 'd'];
+    count = 0;
+    $('.tic').text("");
+    $('#turn').empty();
+    $('#winner').empty();
+    $("#turn").text(' Player X');
+    console.log("reset function");
 })
+const playerO = function (event) {
+    if ($('.tic').text() == "") {
+    turnVar = false;   
+    $("#turn").text(' Player O');
+    // console.log("oChoice function, there shouldn't be a problem now");
+    }
+    // else console.log('not allowed to change to O turns once started playing');
+}
+const playerX = function (event) {
+    if ($('.tic').text() == "") {
+    turnVar = true;   
+    $("#turn").text(' Player X');
+    // console.log("xChoice function");
+    }
+    // else console.log('not allowed to change to X turns once started playing');
+}
+
+$('.tic').on('click', playerTic);
+$('#oChoice').on('click', playerO)
+$('#xChoice').on('click', playerX)
+
+// Next:
+// Players gets to chose thier tokens (x,o) ------// DONE
+// keeping score -------------// 
+// CSS Animations or
+// Computer vs user

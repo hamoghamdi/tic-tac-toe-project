@@ -32,19 +32,27 @@
         <div id = box-9 class = "tic"></div>
        </div>
 
-    </section> 
+    </section>
     <p>
-        <span id = turn>Player X</span>'s turn next
+        <button id = xChoice>X</button>
+        <button id = oChoice>O</button>
+    </p>
+    <p>
+        Turn next:<span id = turn>Player X</span>
     </p>
 
     <section id = result>
         <p>
-            winner is<span id = winner></span>
+            Result: <span id = winner></span>
         </p>
-        <button type="reset" id="reset">Restaret Game</button>
+        <p>
+            Score: <span id = score></span>
+        </p>
+        <button type="reset" id="reset">Restart Game</button>
     </section>
     <br>
     <footer>By: Haneen Alghamdi</footer>
+
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
     <script src="js/main.js" type="text/javascript"></script>
