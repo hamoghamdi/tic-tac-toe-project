@@ -5,6 +5,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css?family=Gugi');
         @import url('https://fonts.googleapis.com/css?family=Cormorant+Unicase');
+        @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,6 +14,7 @@
 </head>
 <body>
     <header><h1>Tic Tac Toe</h1></header>
+    <main>
     <section id = "gameboard">
        <div id= col-1 class = "col">
            <div id = box-1 class = "tic"></div>
@@ -31,25 +33,24 @@
         <div id = box-8 class = "tic"></div>
         <div id = box-9 class = "tic"></div>
        </div>
-
     </section>
+       <section class = "result">
     <p>
-        <button id = xChoice>X</button>
-        <button id = oChoice>O</button>
+        <button id=xChoice>X</button>
+        <button id=oChoice>O</button>
     </p>
     <p>
-        Turn next:<span id = turn>Player X</span>
+        Turn next:<span id=turn> Player X</span>
     </p>
-
-    <section id = result>
-        <p>
-            Result: <span id = winner></span>
-        </p>
-        <p>
-            Score: <span id = score></span>
-        </p>
-        <button type="reset" id="reset">Restart Game</button>
+    <p>
+        Winner: <span id=winner></span>
+    </p>
+    <p>
+        Score: <span id=score></span>
+    </p>
+    <button type="reset" id="reset">New Game</button>
     </section>
+</main>
     <br>
     <footer>By: Haneen Alghamdi</footer>
 

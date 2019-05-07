@@ -3,20 +3,30 @@ let rowWinArray = ['row', 'row', 'row'];
 let diagonalWinArray = ['d', 'd'];
 let count = 0;
 
+let xWins =0;
+let oWins = 0;
+let ties = 0;
+
 const winnerIsX = function(event){
-    $("#winner").text(' Player X wins!');
+    $("#winner").text(' Player X won!');
     // $('.tic').off('click'); // ---------------------------- // try not to use off 
     $('#turn').empty();
+    xWins++;
+    score();
 }
 const winnerIsO = function(event){
-    $("#winner").text(' Player O wins!');
+    $("#winner").text(' Player O won!');
     // $('.tic').off('click'); // ---------------------------- // try not to use off
     $('#turn').empty();
+    oWins++;
+    score();
 }
 const tie = function (event) {
     if (!$('#winner').text() && count == 9) {
         $('#winner').text("It's a tie!");
         $('#turn').empty();
+        ties++;
+        score();
     }
 }
 const turn = function (event) {
@@ -143,13 +153,17 @@ const playerX = function (event) {
     }
     // else console.log('not allowed to change to X turns once started playing');
 }
+const score = function(){
+    $('#score').text("X :(" + xWins + "), O :(" + oWins + "), ties :(" + ties + ").");
+}
 
 $('.tic').on('click', playerTic);
 $('#oChoice').on('click', playerO)
 $('#xChoice').on('click', playerX)
 
 // Next:
-// Players gets to chose thier tokens (x,o) ------// DONE
-// keeping score -------------// 
-// CSS Animations or
+// Have O play first insted of X ------// DONE
+// keeping score based on X and O-------------// Done
+// keeping score based on players 1 and 2 (a player could chose x or o, player 1 is alwayes the one who starts first)
+// Responsive
 // Computer vs user
