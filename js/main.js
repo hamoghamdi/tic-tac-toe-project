@@ -162,8 +162,7 @@ $('#oChoice').on('click', playerO)
 $('#xChoice').on('click', playerX)
 
 // Next:
-// Have O play first insted of X ------// DONE
-// keeping score based on X and O-------------// Done
-// keeping score based on players 1 and 2 (a player could chose x or o, player 1 is alwayes the one who starts first)
-// Responsive
-// Computer vs user
+// Have O play first insted of X ----------------// DONE
+// keeping score based on X and O --------------// DONE
+// Responsive ---------------------------------// DONE 
+// Computer vs user 

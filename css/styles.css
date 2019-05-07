@@ -63,3 +63,28 @@ footer{
     padding: 1%;
     text-align: center;
 }
+
+@media (max-width: 950px){
+    main{
+        display: block;
+    }
+    #gameboard, .result{
+        width: 100%;
+        text-align: center;
+    }
+    header{
+        font-size: 20px;
+    }
+}
+@media (max-width: 500px){
+    body, header, section, p{
+        font-size: 14px;
+    }
+    .tic{
+        height: 60px;
+        width: 70px;
+    }
+    span{
+        font-size: 30px;
+    }
+}
