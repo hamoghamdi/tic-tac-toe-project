@@ -7,19 +7,21 @@ let xWins =0;
 let oWins = 0;
 let ties = 0;
 
+let vsComput = false;
+
 const winnerIsX = function(event){
     $("#winner").text(' Player X won!');
-    // $('.tic').off('click'); // ---------------------------- // try not to use off 
     $('#turn').empty();
     xWins++;
     score();
+    $('audio')[0].play();
 }
 const winnerIsO = function(event){
     $("#winner").text(' Player O won!');
-    // $('.tic').off('click'); // ---------------------------- // try not to use off
     $('#turn').empty();
     oWins++;
     score();
+    $('audio')[0].play();
 }
 const tie = function (event) {
     if (!$('#winner').text() && count == 9) {
@@ -38,30 +40,26 @@ const turn = function (event) {
         $(event.target).html('<span>O</span>')
         turnVar = true;
         $("#turn").text(' Player X');
+        }
     }
-}
+
 const columnWin = function (event) {
-    if ($('#col-1').children().text() == 'XXX' || $('#col-2').children().text() == 'XXX' || $('#col-3').children().text() == 'XXX') {
-        // console.log('all col clicked by X');
+    if ($('#col-1').children().text() == 'XXX' || $('#col-2').children().text() == 'XXX' || $('#col-3').children().text() == 'XXX') { // ('all col clicked by X');
         winnerIsX(event);
     } else {
-        if ($('#col-1').children().text() == 'OOO' || $('#col-2').children().text() == 'OOO' || $('#col-3').children().text() == 'OOO') {
-            // console.log('all col clicked by O');
+        if ($('#col-1').children().text() == 'OOO' || $('#col-2').children().text() == 'OOO' || $('#col-3').children().text() == 'OOO') { // ('all col clicked by O');
             winnerIsO(event);
         }
     }
 }
 const rowWin = function (event) {
-    if ($(event.target).index() == 0) {
-        // console.log(' 1st row clicked') 
+    if ($(event.target).index() == 0) { // (' 1st row clicked') 
         rowWinArray[0] += $(event.target).text();
     } else {
-        if ($(event.target).index() == 1) {
-            // console.log(' 2nd row clicked')
+        if ($(event.target).index() == 1) { // (' 2nd row clicked')
             rowWinArray[1] += $(event.target).text();
         } else {
-            if ($(event.target).index() == 2) {
-                // console.log(' 3rd row clicked')
+            if ($(event.target).index() == 2) { // (' 3rd row clicked')
                 rowWinArray[2] += $(event.target).text();
             }
         }
@@ -108,25 +106,25 @@ const diagonalWin = function (event) {
 const playerTic = function (event) {
     event.preventDefault()
     if ($(event.target).text() == "" && $('#winner').text() == ""){
-    // $(event.target).off("click"); // allow one click per box // off f up everything better not use it since reset is not page refresh
-    turn(event);
-    // scenario 1 : col win
-    columnWin(event);
-    // scenario 2 : row win
-    rowWin(event);
-    // scenario 3 : diagonal win
-    diagonalWin(event);
-    // scenario 4 : tie
-    count++;
-    tie(event);
-    console.log("playerTic function");
-    // console.log("playerTic if entered");
+        turn(event);
+        // scenario 1 : col win
+        columnWin(event);
+        // scenario 2 : row win
+        rowWin(event);
+        // scenario 3 : diagonal win
+        diagonalWin(event);
+        // scenario 4 : tie
+        count++;
+        tie(event);
+
+        if(vsComput){
+            vsComputer();
+            count++;
+        }
     } 
-    else console.log("playerTic if(else) entered");
 }
 
 $('#reset').on('click', function (event) {
-    // location.reload();
     turnVar = true;
     rowWinArray = ['row', 'row', 'row'];
     diagonalWinArray = ['d', 'd'];
@@ -135,34 +133,72 @@ $('#reset').on('click', function (event) {
     $('#turn').empty();
     $('#winner').empty();
     $("#turn").text(' Player X');
-    console.log("reset function");
+
+    // $('.tic').on('click');
+    vsComput = false;   
 })
 const playerO = function (event) {
-    if ($('.tic').text() == "") {
+    if ($('.tic').text() == "" && !vsComput) {
     turnVar = false;   
     $("#turn").text(' Player O');
-    // console.log("oChoice function, there shouldn't be a problem now");
     }
     // else console.log('not allowed to change to O turns once started playing');
 }
 const playerX = function (event) {
-    if ($('.tic').text() == "") {
+    if ($('.tic').text() == "" && !vsComput) {
     turnVar = true;   
     $("#turn").text(' Player X');
-    // console.log("xChoice function");
     }
     // else console.log('not allowed to change to X turns once started playing');
 }
 const score = function(){
-    $('#score').text("X :(" + xWins + "), O :(" + oWins + "), ties :(" + ties + ").");
+    if (!vsComput)
+        $('#score').text("X :(" + xWins + "), O :(" + oWins + "), ties :(" + ties + ").");
+}
+// default: player is x, computer is o
+
+const vsComputer = function(event){
+    if (vsComput && !turnVar && $('#winner').text() == "" ) {
+        console.log('vs comp function')
+        let randomTic = Math.floor(Math.random() * 10);
+        if ($('div#box-' + randomTic).html() == "" && count <10) {
+            console.log('vs comp if/ random ')
+            $('div#box-' + randomTic).html('<span>O</span>');
+            // $('div#box-' + randomTic).off('click');
+            turnVar = true;
+            $("#turn").text(' Player X');
+        } else if ($('#winner').text() == "") {
+            vsComputer();}
+        //
+        // for(let i=0; i<10; i++){
+        //     console.log('vs comp for loop')
+        //     if ($('div#box-' + i).html()  == ""){
+        //         $('div#box-' + i).html('<span>O</span>');
+        //         $('div#box-' + i).off('click');
+        //         turnVar = true;
+        //         $("#turn").text(' Player X');
+        //         break;
+        //     }
+        // }
+    }
 }
 
 $('.tic').on('click', playerTic);
 $('#oChoice').on('click', playerO)
 $('#xChoice').on('click', playerX)
+$('#vsComp').on('click', function(event){
+    console.log('vs comp click')
+    vsComput = true;
+    vsComputer();
+})
 
 // Next:
-// Have O play first insted of X ----------------// DONE
+// allow user to play as O or X ----------------// DONE
 // keeping score based on X and O --------------// DONE
 // Responsive ---------------------------------// DONE 
-// Computer vs user 
+// Add Audio ----------------------------------// DONE
+// player 1 is first player regardless if x or o => track score , => show turns
+// README FILE !!!
+// Computer vs user
+// Customized tokens 
+// local storage?
