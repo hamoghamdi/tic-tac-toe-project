@@ -26,6 +26,7 @@ main{
     width: 60%;
     display: flex;
     justify-content: center;
+    height: 100%;
 }
 #col-1, #col-2{
     border-right:3px solid #9c4be7;
@@ -45,7 +46,10 @@ span{
 .result{
     text-align: left;
 }
-#winner, #turn, #score{
+.hidden{
+    display: none;
+}
+#winner, #turn, #score, #mode, #computerScore{
     font-size: inherit;
     color: #9c4be7;
 }
@@ -87,5 +91,10 @@ footer{
     }
     span{
         font-size: 30px;
+    }
+    #xChoice, #oChoice{
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
     }
 }

@@ -6,17 +6,23 @@ let ties = 0;
 let vsComput = false;
 let playBoard = ["", "", "", "", "", "", "", "", ""];
 
+let compX = 0;
+let compO = 0;
+let compTie = 0;
+
 const winnerIsX = function(event){
     $("#winner").text(' Player X won!');
     $('#turn').empty();
-    xWins++;
+    if (!vsComput) xWins++;
+    else compX++;
     score();
     $('audio')[0].play();
 }
 const winnerIsO = function(event){
     $("#winner").text(' Player O won!');
     $('#turn').empty();
-    oWins++;
+    if (!vsComput) oWins++;
+    else compO++;
     score();
     $('audio')[0].play();
 }
@@ -24,7 +30,8 @@ const tie = function (event) {
     if (!$('#winner').text() && playBoard.every(element => element != "")) {
         $('#winner').text("It's a tie!");
         $('#turn').empty();
-        ties++;
+        if (!vsComput) ties++;
+        else compTie++;
         score();
     }
 }
@@ -75,7 +82,7 @@ const playerTic = function (event) {
         }
     } 
 }
-$('#reset').on('click', function (event) {
+const reset = function (event) {
     turnVar = true;
     playBoard = ["", "", "", "", "", "", "", "", ""];
     count = 0;
@@ -83,8 +90,10 @@ $('#reset').on('click', function (event) {
     $('#turn').empty();
     $('#winner').empty();
     $("#turn").text(' Player X');
-    vsComput = false;   
-})
+    vsComput = false;
+    $('#mode').text('Two Players');
+    $('#xChoice').parent().removeClass('hidden');
+}
 const playerO = function (event) {
     if ($('.tic').text() == "" && !vsComput) {
     turnVar = false;   
@@ -100,6 +109,8 @@ const playerX = function (event) {
 const score = function(){
     if (!vsComput)
         $('#score').text("X :(" + xWins + "), O :(" + oWins + "), ties :(" + ties + ").");
+    else 
+        $('#computerScore').text("X :(" + compX + "), Computer :(" + compO + "), ties :(" + compTie + ").");
 }
 const vsComputer = function (event) { // default: player is x, computer is o
     if (vsComput && !turnVar && $('#winner').text() == "" ) {
@@ -117,11 +128,15 @@ const vsComputer = function (event) { // default: player is x, computer is o
     }
 }
 
+$('#reset').on('click', reset)
 $('.tic').on('click', playerTic);
 $('#oChoice').on('click', playerO)
-$('#xChoice').on('click', playerX)
+$('#xChoice').on('click', playerX);
 $('#vsComp').on('click', function(event){
+    reset();
     vsComput = true;
+    $('#mode').text('Player vs Computer');
+    $('#xChoice').parent().addClass('hidden');
     vsComputer();
 })
 
@@ -131,14 +146,12 @@ $('#vsComp').on('click', function(event){
 // Responsive ----------------------------------// DONE 
 // Add Audio -----------------------------------// DONE
 // Computer vs user ----------------------------// DONE
+// show game mode, vs computer, two players ----// DONE
 
 //------------ needed fixes -----------// 
 // README FILE !!! 
 // show when computer wins 
-// show when it's on computer mode // one player, two players // IMPORTANT
-// restart score/ reload page 
 //------------ needed fixes -----------//
 
 //------------ extra features -----------//
 // vs computer score
-// player 1, player 2 ?
