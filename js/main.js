@@ -21,10 +21,11 @@ const winnerIsX = function(event){
 const winnerIsO = function(event){
     $("#winner").text(' Player O won!');
     $('#turn').empty();
-    if (!vsComput) oWins++;
-    else compO++;
+    if (!vsComput){ 
+        oWins++;
+        $('audio')[0].play();
+    } else compO++;
     score();
-    $('audio')[0].play();
 }
 const tie = function (event) {
     if (!$('#winner').text() && playBoard.every(element => element != "")) {
@@ -93,6 +94,8 @@ const reset = function (event) {
     vsComput = false;
     $('#mode').text('Two Players');
     $('#xChoice').parent().removeClass('hidden');
+    $('#computerScore').parent().addClass('hidden');
+    $('#score').parent().removeClass('hidden');
 }
 const playerO = function (event) {
     if ($('.tic').text() == "" && !vsComput) {
@@ -137,6 +140,8 @@ $('#vsComp').on('click', function(event){
     vsComput = true;
     $('#mode').text('Player vs Computer');
     $('#xChoice').parent().addClass('hidden');
+    $('#computerScore').parent().removeClass('hidden');
+    $('#score').parent().addClass('hidden');
     vsComputer();
 })
 
@@ -146,12 +151,12 @@ $('#vsComp').on('click', function(event){
 // Responsive ----------------------------------// DONE 
 // Add Audio -----------------------------------// DONE
 // Computer vs user ----------------------------// DONE
-// show game mode, vs computer, two players ----// DONE
+// show game mode (vs computer,two players) ----// DONE
+// vs computer score ---------------------------// DONE
 
 //------------ needed fixes -----------// 
 // README FILE !!! 
-// show when computer wins 
-//------------ needed fixes -----------//
 
 //------------ extra features -----------//
-// vs computer score
+// allow user to choose (x,o) when playing vs computer
+// show when computer wins 
