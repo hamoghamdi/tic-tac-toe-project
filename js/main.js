@@ -21,7 +21,7 @@ const winnerIsO = function(event){
     $('audio')[0].play();
 }
 const tie = function (event) {
-    if (!$('#winner').text() && count == 9) {
+    if (!$('#winner').text() && playBoard.every(element => element != "")) {
         $('#winner').text("It's a tie!");
         $('#turn').empty();
         ties++;
@@ -110,6 +110,7 @@ const vsComputer = function (event) { // default: player is x, computer is o
             $("#turn").text(' Player X');
         } 
         winner();
+        tie();
         if ($('#winner').text() == "") {
             vsComputer();
         }
@@ -134,9 +135,10 @@ $('#vsComp').on('click', function(event){
 //------------ needed fixes -----------// 
 // README FILE !!! 
 // show when computer wins 
-// show when it's on computer mode // one player, tow players
-// refresh round/ reload page 
+// show when it's on computer mode // one player, two players // IMPORTANT
+// restart score/ reload page 
 //------------ needed fixes -----------//
 
 //------------ extra features -----------//
 // vs computer score
+// player 1, player 2 ?
