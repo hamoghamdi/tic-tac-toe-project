@@ -153,9 +153,7 @@ $('#vsComp').on('click', function(event){
 // Computer vs user ----------------------------// DONE
 // show game mode (vs computer,two players) ----// DONE
 // vs computer score ---------------------------// DONE
-
-//------------ needed fixes -----------// 
-// README FILE !!! 
+// README FILE ---------------------------------// DONE
 
 //------------ extra features -----------//
 // allow user to choose (x,o) when playing vs computer
